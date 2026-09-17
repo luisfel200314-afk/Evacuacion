@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     
+    <!-- JS Leaflet & Routing Machine (Se cargan en el head para asegurar disponibilidad global) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'recursos/estilos/estilo.css' %}">
@@ -62,7 +66,7 @@
                     </div>
 
                     <div class="mapa-wrapper" style="display: grid; grid-template-columns: 240px 1fr; gap: 10px;">
-                        <!-- Panel de Opciones de Ruta (Estilo Google Maps) -->
+                        <!-- Panel de Opciones de Ruta -->
                         <div id="panel-rutas" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; font-size: 0.85rem;">
                             <p style="color: var(--primary); font-weight: 800; margin-bottom: 8px;">🛣️ Opciones de Ruta</p>
                             
@@ -138,10 +142,10 @@
         </div>
     </main>
 
-    <!-- 📜 Scripts y datos locales del proyecto -->
+<!-- 📜 Scripts locales del proyecto -->
     <script src="{% static 'recursos/scripts/puntos_encuentro.js' %}"></script>
     <script src="{% static 'recursos/scripts/tabla_csv.js' %}"></script>
-    <script src="{% static 'recursos/scripts/sismos_api.js' %}"></script>
     <script src="{% static 'recursos/scripts/mapa.js' %}"></script>
+    <script src="{% static 'recursos/scripts/sismos_api.js' %}"></script>
 </body>
 </html>
