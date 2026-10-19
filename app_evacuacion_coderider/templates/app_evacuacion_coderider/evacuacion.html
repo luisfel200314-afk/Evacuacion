@@ -10,13 +10,44 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     
-    <!-- JS Leaflet & Routing Machine (Se cargan en el head para asegurar disponibilidad global) -->
+    <!-- JS Leaflet & Routing Machine -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'recursos/estilos/estilo.css' %}">
+
+    <style>
+        /* Ajustes de rescate para asegurar que nada quede invisible o en blanco */
+        body {
+            background-color: #0f172a !important; /* Fondo oscuro global para resaltar todo */
+            color: #f8fafc !important;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.85) !important; /* Tarjetas en azul oscuro con contraste */
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .card-title {
+            color: #38bdf8 !important; /* Azul neón para los títulos */
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+        /* Corregir texto de sismos y listas */
+        #lista-sismos {
+            color: #e2e8f0 !important;
+        }
+        #lista-sismos div, #lista-sismos p {
+            color: #f1f5f9 !important;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 0;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,24 +55,24 @@
     <div class="bg-orb orb-two"></div>
 
     <!-- 🧭 Menú Nav Estilo Glassmorphism -->
-    <nav class="navbar">
+    <nav class="navbar" style="background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div class="nav-contenedor">
-            <a href="#" class="nav-logo"><i class="fa-solid fa-shield-halved"></i> CodeRider</a>
+            <a href="#" class="nav-logo" style="color: #38bdf8;"><i class="fa-solid fa-shield-halved"></i> CodeRider</a>
             <ul class="nav-menu">
-                <li><a href="#" class="nav-enlace activo">📍 Evacuación</a></li>
-                <li><a href="#" class="nav-enlace">📊 Panel</a></li>
+                <li><a href="#" class="nav-enlace activo" style="color: #fff;">📍 Evacuación</a></li>
+                <li><a href="#" class="nav-enlace" style="color: #94a3b8;">📊 Panel</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="dashboard-container">
+    <main class="dashboard-container" style="padding: 1.5rem;">
         
-        <header class="header-main">
+        <header class="header-main" style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
             <div>
-                <h1>Protocolo de <span>Evacuación</span></h1>
-                <p>Centro de Comercio y Servicios • Piso 1</p>
+                <h1 style="color: #fff; font-weight: 800;">Protocolo de <span style="color: #38bdf8;">Evacuación</span></h1>
+                <p style="color: #94a3b8;">Centro de Comercio y Servicios • Piso 1</p>
             </div>
-            <div class="status-indicator">
+            <div class="status-indicator" style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid #22c55e;">
                 <i class="fa-solid fa-circle-dot"></i> Sistema Activo
             </div>
         </header>
@@ -52,47 +83,47 @@
             <!-- Columna Izquierda: Mapa Interactivo + Sismos -->
             <div class="col-main">
                 
-                <!-- 🗺️ NAVEGACIÓN Y RUTAS MÚLTIPLES ESTILO GOOGLE MAPS -->
+                <!-- 🗺️ NAVEGACIÓN Y RUTAS MÚLTIPLES -->
                 <article class="card">
                     <div class="card-title">
                         <i class="fa-solid fa-route"></i> NAVEGACIÓN Y RUTAS EN TIEMPO REAL
                     </div>
 
-                    <!-- Buscador de origen y destino -->
+                    <!-- Buscador de origen y destino con buen contraste -->
                     <div class="map-search-bar" style="display: flex; gap: 0.5rem; margin-bottom: 0.8rem;">
-                        <input type="text" id="origen-input" placeholder="Escribe origen o haz clic en el mapa..." style="flex: 1; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff;">
-                        <input type="text" id="destino-input" value="SENA Comercio y Servicios" readonly style="width: 180px; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: var(--muted); text-overflow: ellipsis;">
-                        <button class="btn-action" onclick="trazarRutaManual()" style="padding: 0.6rem 1rem; border-radius: 8px; border: 0; background: var(--primary); color: #000; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-directions"></i> Calcular</button>
+                        <input type="text" id="origen-input" placeholder="Escribe origen o haz clic en el mapa..." style="flex: 1; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(15, 23, 42, 0.8); color: #fff;">
+                        <input type="text" id="destino-input" value="SENA Comercio y Servicios" readonly style="width: 180px; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.9); color: #38bdf8; font-weight: 600; text-overflow: ellipsis;">
+                        <button class="btn-action" onclick="trazarRutaManual()" style="padding: 0.6rem 1rem; border-radius: 8px; border: 0; background: #38bdf8; color: #0f172a; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-directions"></i> Calcular</button>
                     </div>
 
                     <div class="mapa-wrapper" style="display: grid; grid-template-columns: 240px 1fr; gap: 10px;">
                         <!-- Panel de Opciones de Ruta -->
-                        <div id="panel-rutas" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; font-size: 0.85rem;">
-                            <p style="color: var(--primary); font-weight: 800; margin-bottom: 8px;">🛣️ Opciones de Ruta</p>
+                        <div id="panel-rutas" style="background: rgba(15, 23, 42, 0.7); padding: 10px; border-radius: 12px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.1);">
+                            <p style="color: #38bdf8; font-weight: 800; margin-bottom: 8px;">🛣️ Opciones de Ruta</p>
                             
-                            <div class="ruta-option activa" onclick="seleccionarRuta(0)" style="background: rgba(110, 231, 255, 0.15); border: 1px solid var(--primary); padding: 8px; border-radius: 8px; margin-bottom: 6px; cursor: pointer;">
-                                <strong>🔵 Ruta Principal</strong>
-                                <div style="color: var(--success); font-weight: bold; font-size: 0.95rem; margin-top: 2px;">28 min <span style="font-size: 0.8rem; color: var(--muted);">(11.8 km)</span></div>
-                                <small style="color: var(--muted);">Por Cra. 9 / Popayán</small>
+                            <div class="ruta-option activa" onclick="seleccionarRuta(0)" style="background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; padding: 8px; border-radius: 8px; margin-bottom: 6px; cursor: pointer;">
+                                <strong style="color: #fff;">🔵 Ruta Principal</strong>
+                                <div style="color: #4ade80; font-weight: bold; font-size: 0.95rem; margin-top: 2px;">28 min <span style="font-size: 0.8rem; color: #94a3b8;">(11.8 km)</span></div>
+                                <small style="color: #94a3b8;">Por Cra. 9 / Popayán</small>
                             </div>
 
                             <div class="ruta-option" onclick="seleccionarRuta(1)" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; margin-bottom: 6px; cursor: pointer;">
-                                <strong>⚪ Ruta Alternativa 1</strong>
-                                <div style="color: var(--muted); font-weight: bold; font-size: 0.85rem; margin-top: 2px;">29 min <span>(14.1 km)</span></div>
-                                <small style="color: var(--muted);">Por Cra. 6</small>
+                                <strong style="color: #e2e8f0;">⚪ Ruta Alternativa 1</strong>
+                                <div style="color: #94a3b8; font-weight: bold; font-size: 0.85rem; margin-top: 2px;">29 min <span>(14.1 km)</span></div>
+                                <small style="color: #94a3b8;">Por Cra. 6</small>
                             </div>
 
                             <div class="ruta-option" onclick="seleccionarRuta(2)" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; cursor: pointer;">
-                                <strong>⚪ Ruta Alternativa 2</strong>
-                                <div style="color: var(--muted); font-weight: bold; font-size: 0.85rem; margin-top: 2px;">31 min <span>(10.9 km)</span></div>
-                                <small style="color: var(--muted);">Por Variante Norte</small>
+                                <strong style="color: #e2e8f0;">⚪ Ruta Alternativa 2</strong>
+                                <div style="color: #94a3b8; font-weight: bold; font-size: 0.85rem; margin-top: 2px;">31 min <span>(10.9 km)</span></div>
+                                <small style="color: #94a3b8;">Por Variante Norte</small>
                             </div>
                         </div>
 
                         <!-- Contenedor Único del Mapa -->
                         <div id="mapa-interactivo" style="width: 100%; height: 380px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);"></div>
                     </div>
-                    <p style="color: var(--muted); font-size: 0.8rem; margin-top: 8px;"><i class="fa-solid fa-hand-pointer"></i> <strong>Tip:</strong> Haz clic sobre cualquier punto del mapa para trazar tu ruta personalizada.</p>
+                    <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 8px;"><i class="fa-solid fa-hand-pointer"></i> <strong>Tip:</strong> Haz clic sobre cualquier punto del mapa para trazar tu ruta personalizada.</p>
                 </article>
 
                 <article class="card">
@@ -100,7 +131,7 @@
                         <i class="fa-solid fa-earth-americas"></i> Monitoreo Sísmico en Tiempo Real (USGS)
                     </div>
                     <div id="lista-sismos" style="max-height: 220px; overflow-y: auto;">
-                        <p style="color: var(--muted);">🔄 Cargando registros...</p>
+                        <p style="color: #94a3b8;">🔄 Cargando registros...</p>
                     </div>
                 </article>
 
@@ -113,7 +144,7 @@
                     <div class="card-title">
                         <i class="fa-solid fa-circle-play"></i> Video del Procedimiento
                     </div>
-                    <video controls width="100%" style="border-radius: 12px;">
+                    <video controls width="100%" style="border-radius: 12px; background: #000;">
                         <source src="{% static 'recursos/videos/clips/Evacuacion.mp4' %}" type="video/mp4">
                     </video>
                 </article>
@@ -131,8 +162,8 @@
                     <div class="card-title">
                         <i class="fa-solid fa-file-pdf"></i> Manual del Protocolo
                     </div>
-                    <p style="color: var(--muted); font-size: 0.9rem;">Documento oficial en PDF para contingencias.</p>
-                    <a href="{% static 'recursos/documentos/pdf/plan_evacuacion.pdf' %}" class="btn-action" style="display: block; text-align: center; text-decoration: none; padding: 0.7rem; border-radius: 8px; background: var(--primary); color: #000; font-weight: bold;" download>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 10px;">Documento oficial en PDF para contingencias.</p>
+                    <a href="{% static 'recursos/documentos/pdf/plan_evacuacion.pdf' %}" class="btn-action" style="display: block; text-align: center; text-decoration: none; padding: 0.7rem; border-radius: 8px; background: #38bdf8; color: #0f172a; font-weight: bold;" download>
                         <i class="fa-solid fa-download"></i> Descargar PDF
                     </a>
                 </article>
@@ -142,7 +173,7 @@
         </div>
     </main>
 
-<!-- 📜 Scripts locales del proyecto -->
+    <!-- 📜 Scripts locales del proyecto (Intactos) -->
     <script src="{% static 'recursos/scripts/puntos_encuentro.js' %}"></script>
     <script src="{% static 'recursos/scripts/tabla_csv.js' %}"></script>
     <script src="{% static 'recursos/scripts/mapa.js' %}"></script>
