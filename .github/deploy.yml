@@ -4,6 +4,11 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     name: Pruebas del Sistema
@@ -32,7 +37,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-    - name: Confirmar despliegue
+    - name: Subir artefacto para Pages
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
+
+    - name: Desplegar a GitHub Pages
       id: deployment
-      run: |
-        echo "Despliegue finalizado."
+      uses: actions/deploy-pages@v4
