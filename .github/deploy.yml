@@ -9,6 +9,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   test:
     name: Pruebas del Sistema
@@ -28,24 +32,23 @@ jobs:
         echo "Pruebas pasadas correctamente."
 
   deploy:
-    name: deploy
-    needs: test
-    runs-on: ubuntu-latest
-    
-    # Declaramos la URL del ambiente dinámicamente
     environment:
       name: github-pages
-      url: https://luisfel200314-afk.github.io/Evacuacion/
-
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: test
     steps:
-    - name: Descargar codigo
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Subir artefacto para Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: '.'
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-    - name: Desplegar a GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
