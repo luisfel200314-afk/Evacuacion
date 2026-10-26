@@ -32,11 +32,15 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     
+    # Declaramos la URL del ambiente dinámicamente
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: https://luisfel200314-afk.github.io/Evacuacion/
 
     steps:
+    - name: Descargar codigo
+      uses: actions/checkout@v4
+
     - name: Subir artefacto para Pages
       uses: actions/upload-pages-artifact@v3
       with:
