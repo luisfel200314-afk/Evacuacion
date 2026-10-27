@@ -14,10 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     map = L.map('mapa-interactivo').setView([latSENA, lngSENA], 15);
 
     // Servidor de OpenStreetMap 🌐
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, and the GIS User Community',
+    maxZoom: 16
 }).addTo(map);
 
     // Marcador Punto de Encuentro Principal SENA 🟢
