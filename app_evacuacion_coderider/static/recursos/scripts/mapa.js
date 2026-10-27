@@ -14,11 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     map = L.map('mapa-interactivo').setView([latSENA, lngSENA], 15);
 
     // Servidor de OpenStreetMap 🌐
-    L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & Wikimedia Maps',
-    minZoom: 1,
-    maxZoom: 19
-}).addTo(map);
+   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+    maxZoom: 16
+    }).addTo(map);
     // Marcador Punto de Encuentro Principal SENA 🟢
     L.marker([latSENA, lngSENA]).addTo(map)
         .bindPopup('<b>📍 SENA Centro de Comercio y Servicios</b><br>Punto de Encuentro Evacuación Piso 1')
