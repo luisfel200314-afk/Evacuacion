@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     map = L.map('mapa-interactivo').setView([latSENA, lngSENA], 15);
 
     // Servidor de OpenStreetMap 🌐
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
+    L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & Wikimedia Maps',
+    minZoom: 1,
+    maxZoom: 19
 }).addTo(map);
     // Marcador Punto de Encuentro Principal SENA 🟢
     L.marker([latSENA, lngSENA]).addTo(map)
